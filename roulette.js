@@ -1,4 +1,8 @@
 (function($) {
+	var memberId = [0,1,2,3,4,5];
+	var count = 0;
+	var selectId = 0;
+
 	var Roulette = function(options) {
 		var defaultSettings = {
 			maxPlayCount : null, // x >= 0 or null
@@ -11,6 +15,14 @@
 			startCallback : function() {
 			},
 			slowDownCallback : function() {
+				count ++;
+				if(count % 2 != 0){
+					selectId = Math.floor(Math.random() * memberId.length);
+				}
+				p.stopImageNumber = memberId[selectId];
+				if(count % 2 == 0){
+					memberId.splice(selectId,1);
+				}
 			}
 		}
 		var defaultProperty = {
@@ -181,7 +193,6 @@
 		return this.each(function() {
 			var self = $(this);
 			var roulette = self.data('plugin_' + pluginName);
-
 			if (roulette) {
 				if (roulette[method]) {
 					roulette[method](options);
