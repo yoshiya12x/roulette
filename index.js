@@ -9,42 +9,41 @@ $(function() {
       'images/random.png',
       'images/chomp.png'
     ),
-
-  // 配列の長さ
   len = images.length,
-  condition = true;
+  speed = 7,    // 7はループの速度　Windowsは1でmacは7が丁度良かった
+  roulette;
 
   function rand() {
     return Math.floor(Math.random() * len);
   }
 
-  var roulette = setInterval(function() {
-    $(".roulette img").attr("src",images[rand()]);
-  }, 1);
-
-  function stopRoulette() {
+  function startRoulette() {
     clearInterval(roulette);
+    roulette = setInterval(function() {
+      $(".roulette img").attr("src", images[rand()]);
+    }, speed);
   }
 
-  $('#stop').click(function(e) {
-    stopRoulette();
+  function removeMember() {
     var imageSrc = $('.roulette img').attr('src')
-    console.log(imageSrc);
+    // console.log(imageSrc); //デバッグ用
     var idx = images.indexOf(imageSrc);
     if (idx >= 0) {
       images.splice(idx, 1);
     }
-    console.log(images);
+    // console.log(images); //デバッグ用
+  }
+
+  $(document).keydown(function(e) {
+    if (e.keyCode === 32) {
+      clearInterval(roulette);
+      // ここらへんにモーダルを表示する処理を書く。　もしくは配列から削除する前にモーダルを出したほうが良いのでremoveMember関数の名前を変えたほうがいいかな
+      removeMember()
+    } else {
+      startRoulette();
+    }
     e.preventDefault;
   })
 
-  $(document).keydown(function(e) {
-    e.preventDefault;
-    if (e.keyCode === 32) {
-      stopRoulette();
-      var roulette = setInterval(function() {
-        $(".roulette img").attr("src",images[rand()]);
-      }, 1);
-    }
-  });
+  startRoulette()
 });
