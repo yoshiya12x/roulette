@@ -1,37 +1,50 @@
-$(document).ready(function(){
-	var option = {
-		speed : 10,
-		duration : 2,
-		// 何番目にストップするかを指定できる
-		stopImageNumber : 0,
-		// プレイ回数の上限指定
-		maxPlayCount: 17
-	}
+'use strict';
+$(function() {
+  // imagesの要素を集めた画像に差し替えておく
+  var images = new Array(
+      'images/star.png',
+      'images/flower.png',
+      'images/coin.png',
+      'images/mshroom.png',
+      'images/random.png',
+      'images/chomp.png'
+    ),
 
-	$('div.roulette').roulette(option);
-	$('div.roulette2').roulette(option);
-	var $shinsotsu = $('.roulette img');
+  // 配列の長さ
+  len = images.length,
+  condition = true;
 
-	// START!
-	$('.start').click(function(){
-		$('div.roulette').roulette('start');
-	});
+  function rand() {
+    return Math.floor(Math.random() * len);
+  }
 
-	// STOP!
-	$('.stop').click(function(){
-		$('div.roulette').roulette('stop');
-		$shinsotsu.slice()
-	});
+  var roulette = setInterval(function() {
+    $(".roulette img").attr("src",images[rand()]);
+  }, 1);
 
+  function stopRoulette() {
+    clearInterval(roulette);
+  }
 
-	// START!
-	$('.start2').click(function(){
-		$('div.roulette2').roulette('start');
-	});
+  $('#stop').click(function(e) {
+    stopRoulette();
+    var imageSrc = $('.roulette img').attr('src')
+    console.log(imageSrc);
+    var idx = images.indexOf(imageSrc);
+    if (idx >= 0) {
+      images.splice(idx, 1);
+    }
+    console.log(images);
+    e.preventDefault;
+  })
 
-	// STOP!
-	$('.stop2').click(function(){
-		$('div.roulette2').roulette('stop');
-	});
-
+  $(document).keydown(function(e) {
+    e.preventDefault;
+    if (e.keyCode === 32) {
+      stopRoulette();
+      var roulette = setInterval(function() {
+        $(".roulette img").attr("src",images[rand()]);
+      }, 1);
+    }
+  });
 });
