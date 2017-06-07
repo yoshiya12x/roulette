@@ -2,7 +2,7 @@
 $(function() {
   var shinsotsu = new Array(
       { image: 'images/1.jpg', question: 'ほげほげほげほげ' },
-      { iamge: 'images/2.jpg', question: 'aaaaa' },
+      { image: 'images/2.jpg', question: 'aaaaa' },
       { image: 'images/3.jpg', question: 'vvvvv' },
       { image: 'images/4.jpg', question: '好きなゲームはなんでしょう？' },
       { image: 'images/5.jpg', question: 'asdadasadada' },
@@ -36,10 +36,10 @@ $(function() {
   }
 
   function removeMember(imageSrc) {
-    var idx = shinsotsu.indexOf(imageSrc);
-    if (idx >= 0) {
-      shinsotsu.splice(idx, 1);
-    }
+    shinsotsu.some(function(v, i) {
+      if (v.image == imageSrc) {shinsotsu.splice(i,1)} else {console.log("aa");};
+    });
+    // console.log(shinsotsu);
   }
 
   function showModal(imageSrc) {
@@ -67,13 +67,13 @@ $(function() {
 
   $(document).keydown(function(e) {
     e.preventDefault;
+    var imageSrc = $('.roulette img').attr('src')
     if (e.keyCode === spaceKey) {
       clearInterval(roulette);
-      var imageSrc = $('.roulette img').attr('src')
       showModal(imageSrc);
     } else {
-      removeMember(imageSrc);
       closeModal();
+      removeMember(imageSrc);
       startRoulette();
     }
   })
