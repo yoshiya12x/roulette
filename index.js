@@ -14,7 +14,7 @@ $(function() {
       { image: 'images/11.jpg', question: 'asdadasdaadaad' },
       { image: 'images/12.jpg', question: '飼っている猫の匹数は？' },
       { image: 'images/13.jpg', question: '私武田が好きな日本酒はなんでしょう？' },
-      { image: 'images/14.jpg', question: "私はどっちでしょう！？ <img src='images/izumin.jpg' style='display: block;'>" },
+      { image: 'images/14.jpg', question: "私はどっちでしょう！？" },
       { image: 'images/15.jpg', question: '私の出身地はどこでしょう？' },
       { image: 'images/16.jpg', question: '私の好きな動物は？' },
       { image: 'images/17.jpg', question: '私に似ている芸能人は？' }
